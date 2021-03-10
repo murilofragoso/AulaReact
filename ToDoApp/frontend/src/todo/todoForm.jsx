@@ -1,4 +1,5 @@
 import React from 'react'
+import IconButton from '../template/iconButton'
 
 export default props => (
     <div role="form" className="todoForm">
@@ -7,12 +8,13 @@ export default props => (
                 id="description" 
                 className="form-control" 
                 placeholder="Adicione uma tarefa"
+                onChange={props.handleChange}
+                value={props.description}
             ></input>
         </div>
         <div className="col-xs-12 col-sm-3 col-md-2">
-            <button className="btn btn-success">
-                <i className="fa fa-plus"></i>
-            </button>
+            <IconButton style='success' icon='plus'
+             onClick={props.handleAdd}></IconButton>
         </div>
     </div>
 )
