@@ -13,6 +13,9 @@ export default class Todo extends Component {
         this.handleAdd = this.handleAdd.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleRemove = this.handleRemove.bind(this)
+        this.handleMarkAsDone = this.handleMarkAsDone.bind(this)
+        this.handleMarkAsPending = this.handleMarkAsPending.bind(this)
+        this.handleSearch = this.handleSearch.bind(this)
         this.refresh()
     }
 
@@ -31,13 +34,28 @@ export default class Todo extends Component {
             .then(resp => this.refresh())
     }
 
-    refresh() {
-        axios.get(`${URL}?sort=-createdAt`)
+    handleMarkAsDone(todo) {
+        axios.put(`${URL}/${todo._id}`, {...todo, done: true})
+            .then(resp => this.refresh())
+    }
+
+    handleMarkAsPending(todo) {
+        axios.put(`${URL}/${todo._id}`, {...todo, done: false})
+            .then(resp => this.refresh())
+    }
+
+    handleSearch(){
+        this.refresh(this.state.description)
+    }
+
+    refresh(description = '') {
+        const search = description ? `&description__regex=/${description}/` : ''
+        axios.get(`${URL}?sort=-createdAt${search}`)
             .then(resp => 
                 this.setState(
                     {
                         ...this.state, 
-                        description: '', 
+                        description,
                         list: resp.data
                     }
                 )
@@ -52,10 +70,13 @@ export default class Todo extends Component {
                     handleAdd={this.handleAdd}
                     handleChange={this.handleChange}
                     description={this.state.description}
+                    handleSearch={this.handleSearch}
                     />
                 <TodoList
                     list={this.state.list}
                     handleRemove={this.handleRemove}
+                    handleMarkAsDone={this.handleMarkAsDone}
+                    handleMarkAsPending={this.handleMarkAsPending}
                 />
             </div>
         )

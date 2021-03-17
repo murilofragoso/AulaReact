@@ -15,6 +15,8 @@ export default props => (
         <div className="col-xs-12 col-sm-3 col-md-2">
             <IconButton style='success' icon='plus'
              onClick={props.handleAdd}></IconButton>
+             <IconButton style='info' icon='search'
+             onClick={props.handleSearch}></IconButton>
         </div>
     </div>
 )
