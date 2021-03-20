@@ -25,7 +25,6 @@ export default props => {
                     <IconButton 
                         style='danger' 
                         icon='trash-o'
-                        hide={!todo.done}
                         onClick={() => props.handleRemove(todo)}
                     />
                 </td>
