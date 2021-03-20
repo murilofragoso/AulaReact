@@ -11,6 +11,6 @@
     width: 105px;
 }
 
-.todoForm {
+.todoForm, .cadastroForm {
     padding-bottom: 60px;
 }
