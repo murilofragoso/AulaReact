@@ -4,23 +4,27 @@ import IconButton from '../template/iconButton'
 export default props => {
     const renderRows = () => {
         const list = props.list || []
-        return list.map(cadastro => (
-            <tr key={cadastro._id}>
-                <td>
-                    {cadastro.nome}
-                </td>
-                <td>
-                    {cadastro.data}
-                </td>
-                <td>
-                    <IconButton 
-                        style='danger' 
-                        icon='trash-o'
-                        onClick={() => props.handleRemove(cadastro)}
-                    />
-                </td>
-            </tr>
-        ))
+        return list.map(function(cadastro) {
+            let data = new Date(cadastro.data);
+            let dataFormatada = `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`;
+            return(
+                <tr key={cadastro._id}>
+                    <td>
+                        {cadastro.nome}
+                    </td>
+                    <td>
+                        {dataFormatada}
+                    </td>
+                    <td>
+                        <IconButton 
+                            style='danger' 
+                            icon='trash-o'
+                            onClick={() => props.handleRemove(cadastro)}
+                        />
+                    </td>
+                </tr>
+            )
+        })
     }
 
     return (
